@@ -46,7 +46,7 @@ namespace AlsoftShop
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Shop}/{action=Index}");
+                    pattern: "{controller=Shop}/{action=Index}/{id?}");
             });
         }
     }

@@ -9,5 +9,11 @@ namespace AlsoftShop.Repository.Interfaces
     public interface IRepository
     {
         IEnumerable<Item> GetItems();
+
+        IEnumerable<ShoppingCartItem> GetCurrentItems();
+
+        void AddItem(int id);
+
+        void RemoveItem(Guid id);
     }
 }

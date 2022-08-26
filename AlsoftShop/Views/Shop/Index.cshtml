@@ -3,15 +3,31 @@
 <div class="row">
     <div class="col-10 ">
         thats items list
-        <ul>
-            @foreach (var item in Model.Items)
-            {
-                <li>@item.Name @item.Price</li>
-            }
+        <form>
+            <ul>
+                @foreach (var item in Model.Items)
+                {
+                    <li>
+                        @item.Name @item.Price
+                        <button class="btn btn-primary" asp-controller="Shop" asp-action="Add" asp-route-id="@item.Id">Add</button>
+                    </li>
+                }
 
-        </ul>
+            </ul>
+        </form>
     </div>
     <div class="col-2">
         thats shopping cart
+        <form>
+            <ul>
+                @foreach (var item in Model.CurrentItems)
+                {
+                    <li>
+                        @item.Item.Name @item.Quantity
+                        <button class="btn btn-primary" asp-controller="Shop" asp-action="Remove" asp-route-id="@item.Id">Remove</button>
+                    </li>
+                }
+            </ul>
+        </form>
     </div>
 </div>

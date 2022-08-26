@@ -20,12 +20,31 @@ namespace AlsoftShop.Controllers
         public IActionResult Index()
         {
             var items = repository.GetItems();
+            var currentItems = repository.GetCurrentItems();
+
             var vm = new ShopViewModel
             {
                 Items = items,
+                CurrentItems = currentItems
             };
 
-            return View(vm);
+            return View("Index", vm);
+        }
+
+        [Route("Add/{id}")]
+        public IActionResult Add(int id)
+        {
+            repository.AddItem(id);
+
+            return Index();
+        }
+
+        [Route("Remove/{id}")]
+        public IActionResult Remove(Guid id)
+        {
+            repository.RemoveItem(id);
+
+            return Index();
         }
     }
 }
