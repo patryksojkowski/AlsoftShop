@@ -1,10 +1,14 @@
-﻿<div class="row">
+﻿@model AlsoftShop.ViewModels.ShopViewModel
+
+<div class="row">
     <div class="col-10 ">
         thats items list
         <ul>
-            <li>item1</li>
-            <li>item21</li>
-            <li>item13</li>
+            @foreach (var item in Model.Items)
+            {
+                <li>@item.Name @item.Price</li>
+            }
+
         </ul>
     </div>
     <div class="col-2">
