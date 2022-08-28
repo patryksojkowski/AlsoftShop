@@ -1,0 +1,38 @@
+﻿@model AlsoftShop.ViewModels.ShopViewModel
+
+<div class="row">
+    <div class="col-10 ">
+        thats items list
+        <form>
+            <ul>
+                @foreach (var product in Model.Products)
+                {
+                    <li>
+                        @product.Name @product.Price
+                        <button class="btn btn-primary" asp-controller="Shop" asp-action="Add" asp-route-id="@product.Id">Add</button>
+                    </li>
+                }
+
+            </ul>
+        </form>
+    </div>
+    <div class="col-2">
+        thats shopping cart
+        <form class="row">
+            <ul>
+                @foreach (var item in Model.CartItems)
+                {
+                    <li>
+                        @item.Product.Name @item.Quantity
+                        <button class="btn btn-primary" asp-controller="Shop" asp-action="Remove" asp-route-id="@item.Product.Id">Remove</button>
+                    </li>
+                }
+            </ul>
+            <div class="row">
+                <h2>Subtotal: @Model.PriceInfo.Subtotal $</h2>
+                <h2>Discount: @Model.PriceInfo.Discount $</h2>
+                <h2>Total: @Model.PriceInfo.Total $</h2>
+            </div>
+        </form>
+    </div>
+</div>

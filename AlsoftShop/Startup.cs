@@ -1,13 +1,13 @@
+using AlsoftShop.Factories;
+using AlsoftShop.Factories.Interfaces;
+using AlsoftShop.Repository;
+using AlsoftShop.Repository.Interfaces;
+using AlsoftShop.Services;
+using AlsoftShop.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AlsoftShop
 {
@@ -24,21 +24,22 @@ namespace AlsoftShop
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            // signletons
+            services.AddSingleton<IRepository, DatabaseRepository>();
+
+            // scoped
+            services.AddScoped<ISubtotalPriceService, SubtotalPriceService>();
+            services.AddScoped<IDiscountService, DiscountService>();
+            services.AddScoped<ITotalPriceService, TotalPriceService>();
+            services.AddTransient<IDbConnectionFactory, DbConnectionFactory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+            app.UseDeveloperExceptionPage();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -50,7 +51,7 @@ namespace AlsoftShop
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Shop}/{action=Index}/{id?}");
             });
         }
     }
