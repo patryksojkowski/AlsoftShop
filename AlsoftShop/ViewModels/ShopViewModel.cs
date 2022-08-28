@@ -8,9 +8,9 @@ namespace AlsoftShop.ViewModels
 {
     public class ShopViewModel
     {
-        public decimal TotalPrice { get; set; }
-        public decimal TotalDiscount { get; set; }
-        public decimal FinalPrice { get; set; }
+        public decimal Subtotal { get; set; }
+        public decimal Discount { get; set; }
+        public decimal Total { get; set; }
         public IEnumerable<Item> Items { get; set; } = new List<Item>();
         public IEnumerable<ShoppingCartItem> CurrentItems { get; set; } = new List<ShoppingCartItem>();
     }

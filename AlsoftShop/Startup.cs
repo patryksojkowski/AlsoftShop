@@ -33,8 +33,9 @@ namespace AlsoftShop
             services.AddSingleton<IRepository, HardcodedRepository>();
 
             // scoped
-            services.AddScoped<IPriceService, PriceService>();
+            services.AddScoped<ISubtotalPriceService, SubtotalPriceService>();
             services.AddScoped<IDiscountService, DiscountService>();
+            services.AddScoped<ITotalPriceService, TotalPriceService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

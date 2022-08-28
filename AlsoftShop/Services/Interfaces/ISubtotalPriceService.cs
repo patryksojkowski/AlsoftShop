@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace AlsoftShop.Services.Interfaces
 {
-    public interface IPriceService
+    public interface ISubtotalPriceService
     {
-        decimal GetTotalPrice(IEnumerable<ShoppingCartItem> items);
+        decimal GetPrice(IEnumerable<ShoppingCartItem> items);
     }
 }

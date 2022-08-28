@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace AlsoftShop.Services
 {
-    public class PriceService : IPriceService
+    public class SubtotalPriceService : ISubtotalPriceService
     {
-        public decimal GetTotalPrice(IEnumerable<ShoppingCartItem> items)
+        public decimal GetPrice(IEnumerable<ShoppingCartItem> items)
         {
             var total = 0M;
             foreach (var item in items)
