@@ -3,10 +3,8 @@ using AlsoftShop.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Dapper;
 using System.Data;
-using Microsoft.Data.SqlClient;
 using AlsoftShop.Factories.Interfaces;
 
 namespace AlsoftShop.Repository
@@ -22,12 +20,35 @@ namespace AlsoftShop.Repository
 
         public void AddProductToCart(int productId)
         {
-            return;
+            using IDbConnection db = dbConnectionFactory.GetConnection();
+            db.Open();
+
+            var cartItem = db.Query<CartItem>($"SELECT * FROM CartItem WHERE ShoppingCartId = 1 AND ProductId = {productId}")
+                .FirstOrDefault();
+
+            if(cartItem == null)
+            {
+                db.Query($"INSERT INTO CartItem (ProductId, Quantity, ShoppingCartId) VALUES ({productId}, 1, 1)");
+            }
+            else
+            {
+                db.Query($"UPDATE dbo.CartItem SET QUANTITY = {cartItem.Quantity + 1} WHERE ProductId = {productId}");
+            }
         }
 
         public IEnumerable<CartItem> GetCartItems()
         {
-            return new List<CartItem>();
+            using IDbConnection db = dbConnectionFactory.GetConnection();
+            db.Open();
+
+            var result = db.Query<CartItem>("SELECT * FROM CartItem WHERE ShoppingCartId = 1");
+            var products = GetProducts();
+            foreach (var item in result)
+            {
+                item.Product = products.First(p => p.Id == item.ProductId);
+            }
+
+            return result;
         }
 
         public IEnumerable<Discount> GetDiscounts()
@@ -52,7 +73,26 @@ namespace AlsoftShop.Repository
 
         public void RemoveProductFromCart(int productId)
         {
-            return;
+            using IDbConnection db = dbConnectionFactory.GetConnection();
+            db.Open();
+
+            var cartItem = db.Query<CartItem>($"SELECT * FROM CartItem WHERE ShoppingCartId = 1 AND ProductId = {productId}")
+                .FirstOrDefault();
+
+            if (cartItem == null)
+            {
+                throw new ArgumentOutOfRangeException(nameof(productId));
+            }
+
+            if(cartItem.Quantity > 1)
+            {
+                db.Query($"UPDATE dbo.CartItem SET QUANTITY = {cartItem.Quantity - 1} WHERE ProductId = {productId}");
+            }
+            else
+            {
+                db.Query($"DELETE FROM CartItem WHERE ProductId = {productId}");
+
+            }
         }
     }
 }

@@ -13,7 +13,7 @@ namespace AlsoftShop.Services
         private readonly ISubtotalPriceService subtotalPriceService;
         private readonly IDiscountService discountService;
 
-        public TotalPriceService(DatabaseRepository repository,
+        public TotalPriceService(IRepository repository,
             ISubtotalPriceService subtotalPriceService,
             IDiscountService discountService)
         {

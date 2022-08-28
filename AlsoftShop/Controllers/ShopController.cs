@@ -11,23 +11,20 @@ namespace AlsoftShop.Controllers
     {
         private readonly IRepository repository;
         private readonly ITotalPriceService totalPriceService;
-        private readonly DatabaseRepository databaseRepository;
 
         public ShopController(
             IRepository repository,
-            ITotalPriceService totalPriceService,
-            DatabaseRepository databaseRepository)
+            ITotalPriceService totalPriceService)
         {
             this.repository = repository;
             this.totalPriceService = totalPriceService;
-            this.databaseRepository = databaseRepository;
         }
 
         public IActionResult Index()
         {
             try
             {
-                var products = databaseRepository.GetProducts();
+                var products = repository.GetProducts();
                 var cartItems = repository.GetCartItems();
 
                 var priceInfo = totalPriceService.GetPrice(cartItems);

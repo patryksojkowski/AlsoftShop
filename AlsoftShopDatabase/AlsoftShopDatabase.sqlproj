@@ -65,6 +65,7 @@
     <Build Include="dbo\Product.sql" />
     <Build Include="dbo\Discount.sql" />
     <Build Include="dbo\ShoppingCart.sql" />
+    <Build Include="dbo\CartItem.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="seed\Seed.sql" />

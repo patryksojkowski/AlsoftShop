@@ -16,3 +16,13 @@ VALUES
 (2, 5, 1, 0.2), /* 20% on bread for low milk */
 (4, 2, 1, 0.2), /* 20% on full milk for bread */
 (5, 2, 1, 0.2) /* 20% on full milk for bread */
+
+
+INSERT INTO ShoppingCart (Id, Subtotal, Discount, Total)
+VALUES (1, 0, 0, 0)
+
+-- THERE IS NOT NEED TO RUN BELOW
+INSERT INTO CartItem(ProductId, Quantity, ShoppingCartId)
+VALUES
+(1, 1, 1),
+(3, 2, 1)

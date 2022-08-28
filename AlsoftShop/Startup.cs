@@ -26,8 +26,7 @@ namespace AlsoftShop
             services.AddControllersWithViews();
 
             // signletons
-            services.AddSingleton<IRepository, HardcodedRepository>();
-            services.AddSingleton<DatabaseRepository>();
+            services.AddSingleton<IRepository, DatabaseRepository>();
 
             // scoped
             services.AddScoped<ISubtotalPriceService, SubtotalPriceService>();
