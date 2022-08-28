@@ -10,6 +10,21 @@ namespace AlsoftShop.Services
     {
         public decimal GetDiscount(IEnumerable<CartItem> cartItems, IEnumerable<Discount> discounts)
         {
+            if (cartItems is null)
+            {
+                throw new ArgumentNullException(nameof(cartItems));
+            }
+
+            if (discounts is null)
+            {
+                throw new ArgumentNullException(nameof(discounts));
+            }
+
+            return GetDiscountInternal(cartItems, discounts);
+        }
+
+        private decimal GetDiscountInternal(IEnumerable<CartItem> cartItems, IEnumerable<Discount> discounts)
+        {
             var discountTotal = 0M;
             foreach (var discount in discounts)
             {
@@ -28,7 +43,7 @@ namespace AlsoftShop.Services
 
                 // todo verify it actually works via tests :)
                 var discountedItems = Math.Min(
-                    discountedProductQuantity / discount.DiscountTriggerProductCount,
+                    discountTriggerItemQuantity / discount.DiscountTriggerProductCount,
                     discountedProductQuantity);
 
                 // todo verify it actually works via tests :)
