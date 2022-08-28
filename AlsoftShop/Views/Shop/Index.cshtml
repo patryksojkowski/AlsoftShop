@@ -18,7 +18,7 @@
     </div>
     <div class="col-2">
         thats shopping cart
-        <form>
+        <form class="row">
             <ul>
                 @foreach (var item in Model.CurrentItems)
                 {
@@ -28,6 +28,9 @@
                     </li>
                 }
             </ul>
+            <div class="row">
+                <h2>Total: @Model.TotalPrice $</h2>
+            </div>
         </form>
     </div>
 </div>

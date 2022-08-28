@@ -1,4 +1,5 @@
 ﻿using AlsoftShop.Repository.Interfaces;
+using AlsoftShop.Services.Interfaces;
 using AlsoftShop.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,10 +12,12 @@ namespace AlsoftShop.Controllers
     public class ShopController : Controller
     {
         private readonly IRepository repository;
+        private readonly IPriceService priceService;
 
-        public ShopController(IRepository repository)
+        public ShopController(IRepository repository, IPriceService priceService)
         {
             this.repository = repository;
+            this.priceService = priceService;
         }
 
         public IActionResult Index()
@@ -22,10 +25,13 @@ namespace AlsoftShop.Controllers
             var items = repository.GetItems();
             var currentItems = repository.GetCurrentItems();
 
+            var totalPrice = priceService.GetTotalPrice(currentItems);
+
             var vm = new ShopViewModel
             {
                 Items = items,
-                CurrentItems = currentItems
+                CurrentItems = currentItems,
+                TotalPrice = totalPrice
             };
 
             return View("Index", vm);

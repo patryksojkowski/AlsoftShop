@@ -8,6 +8,7 @@ namespace AlsoftShop.ViewModels
 {
     public class ShopViewModel
     {
+        public decimal TotalPrice { get; set; }
         public IEnumerable<Item> Items { get; set; } = new List<Item>();
         public IEnumerable<ShoppingCartItem> CurrentItems { get; set; } = new List<ShoppingCartItem>();
     }

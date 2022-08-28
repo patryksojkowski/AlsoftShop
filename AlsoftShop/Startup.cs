@@ -1,5 +1,7 @@
 using AlsoftShop.Repository;
 using AlsoftShop.Repository.Interfaces;
+using AlsoftShop.Services;
+using AlsoftShop.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,7 +29,11 @@ namespace AlsoftShop
         {
             services.AddControllersWithViews();
 
+            // signletons
             services.AddSingleton<IRepository, HardcodedRepository>();
+
+            // scoped
+            services.AddScoped<IPriceService, PriceService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
