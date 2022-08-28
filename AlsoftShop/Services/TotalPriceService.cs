@@ -1,6 +1,7 @@
 ﻿using AlsoftShop.Models;
 using AlsoftShop.Repository.Interfaces;
 using AlsoftShop.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace AlsoftShop.Services
@@ -20,6 +21,16 @@ namespace AlsoftShop.Services
             this.discountService = discountService;
         }
         public PriceInfo GetPrice(IEnumerable<CartItem> cartItems)
+        {
+            if(cartItems is null)
+            {
+                throw new ArgumentNullException(nameof(cartItems));
+            }
+
+            return GetPriceInternal(cartItems);
+        }
+
+        private PriceInfo GetPriceInternal(IEnumerable<CartItem> cartItems)
         {
             var subtotal = subtotalPriceService.GetSubtotal(cartItems);
 
