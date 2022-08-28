@@ -13,11 +13,16 @@ namespace AlsoftShop.Controllers
     {
         private readonly IRepository repository;
         private readonly IPriceService priceService;
+        private readonly IDiscountService discountService;
 
-        public ShopController(IRepository repository, IPriceService priceService)
+        public ShopController(
+            IRepository repository,
+            IPriceService priceService,
+            IDiscountService discountService)
         {
             this.repository = repository;
             this.priceService = priceService;
+            this.discountService = discountService;
         }
 
         public IActionResult Index()
@@ -25,13 +30,23 @@ namespace AlsoftShop.Controllers
             var items = repository.GetItems();
             var currentItems = repository.GetCurrentItems();
 
+
+            // TODO call to PriceService and DiscountService should be performed by TotalPriceService (name in progress)
             var totalPrice = priceService.GetTotalPrice(currentItems);
+
+            var discounts = repository.GetDiscounts();
+
+            var totalDiscount = discountService.GetDiscount(currentItems, discounts);
+
+            var finalPrice = totalPrice - totalDiscount;
 
             var vm = new ShopViewModel
             {
                 Items = items,
                 CurrentItems = currentItems,
-                TotalPrice = totalPrice
+                TotalPrice = totalPrice,
+                TotalDiscount = totalDiscount,
+                FinalPrice = finalPrice,
             };
 
             return View("Index", vm);

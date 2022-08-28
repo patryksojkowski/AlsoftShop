@@ -34,6 +34,7 @@ namespace AlsoftShop
 
             // scoped
             services.AddScoped<IPriceService, PriceService>();
+            services.AddScoped<IDiscountService, DiscountService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
