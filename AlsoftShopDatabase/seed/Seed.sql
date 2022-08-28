@@ -1,11 +1,11 @@
-﻿INSERT INTO Product (Id, Name, Price, Unit, AdditionalProperties)
+﻿INSERT INTO Product (Id, Name, Price, Unit, Description)
 VALUES
-(1, N'Soup', 0.65, 'tin', N'{"flavour":"chicken"}' ),
-(2, N'Bread', 0.80, 'loaf', N'{"calories":"251 kcal"}'),
-(3, N'Roll', 0.30, 'item', N'{"calories":"80 kcal"}'),
-(4, N'Full-cream milk', 1.60, 'bottle', N'{"fat":"3.2 %"}'),
-(5, N'Low-fat milk', 1.30, 'bottle', N'{"fat":"1.5%"}'),
-(6, N'Apples', 1.00, 'bag', N'{"origin":"Poland"}')
+(1, N'Soup', 0.65, 'tin', N'Flavour: Chicken' ),
+(2, N'Bread', 0.80, 'loaf', N'Calories: 251 kcal'),
+(3, N'Roll', 0.30, 'item', N'Calories: 80 kcal'),
+(4, N'Full-cream milk', 1.60, 'bottle', N'Fat: 3.2 %'),
+(5, N'Low-fat milk', 1.30, 'bottle', N'Fat: 1.5%'),
+(6, N'Apples', 1.00, 'bag', N'Origin: Poland')
 
 
 INSERT INTO Discount (DiscountedProductId, DiscountTriggerProductId, DiscountTriggerProductCount, DiscountPercentage)

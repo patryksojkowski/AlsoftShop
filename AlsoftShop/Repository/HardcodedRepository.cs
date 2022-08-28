@@ -79,10 +79,7 @@ namespace AlsoftShop.Repository
                     Name = "Apple",
                     Price = 1M,
                     Unit = "Bag",
-                    AdditionalProperties = new Dictionary<string, string>
-                    {
-                        ["Origin"] = "Poland"
-                    }
+                    Description = "Origin: Poland"
                 },
                 new Product
                 {
@@ -90,10 +87,7 @@ namespace AlsoftShop.Repository
                     Name = "Soup",
                     Price = 0.65M,
                     Unit = "Tin",
-                    AdditionalProperties = new Dictionary<string, string>
-                    {
-                        ["Flavour"] = "Chicken"
-                    }
+                    Description = "Flavour: Chicken"
                 },
             };
         }
@@ -110,10 +104,7 @@ namespace AlsoftShop.Repository
                         Name = "Soup",
                         Price = 0.65M,
                         Unit = "Tin",
-                        AdditionalProperties = new Dictionary<string, string>
-                        {
-                            ["Flavour"] = "Chicken"
-                        }
+                        Description = "Flavour: Chicken"
                     },
                     Quantity = 2
                 }
