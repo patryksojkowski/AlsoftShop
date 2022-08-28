@@ -53,6 +53,125 @@ namespace AlsoftShop.Tests.Services
         }
 
         [Test]
+        public void GetDiscount_WhenCartItemsProvided_AndMultipleDiscountsOnSameProduct_ShouldReturnCorrectValue()
+        {
+            // Arrange
+            var cartItems = GetCartItems(
+                new (int, decimal, int)[] {
+                    (1, 1, 1),
+                    (2, 1, 1),
+                    (3, 1, 1)
+                });
+            var discounts = new List<Discount>
+            {
+                new Discount
+                {
+                    DiscountedProductId = 1,
+                    DiscountTriggerProductId = 2,
+                    DiscountTriggerProductCount = 1,
+                    DiscountPercentage = 0.5M,
+                },
+                new Discount
+                {
+                    DiscountedProductId = 1,
+                    DiscountTriggerProductId = 3,
+                    DiscountTriggerProductCount = 1,
+                    DiscountPercentage = 0.5M,
+                },
+            };
+
+            // Act
+            var result = sut.GetDiscount(cartItems, discounts);
+
+            // Assert
+            Assert.AreEqual(0.5M, result);
+        }
+        
+        [Test]
+        public void GetDiscount_WhenCartItemsProvided_AndTriggerUsedMoreThanOnce_ShouldReturnCorrectValue()
+        {
+            // Arrange
+            var cartItems = GetCartItems(
+                new (int, decimal, int)[] {
+                    (1, 1, 1),
+                    (2, 1, 1),
+                    (3, 1, 1)
+                });
+            var discounts = new List<Discount>
+            {
+                new Discount
+                {
+                    DiscountedProductId = 2,
+                    DiscountTriggerProductId = 1,
+                    DiscountTriggerProductCount = 1,
+                    DiscountPercentage = 0.5M,
+                },
+                new Discount
+                {
+                    DiscountedProductId = 3,
+                    DiscountTriggerProductId = 1,
+                    DiscountTriggerProductCount = 1,
+                    DiscountPercentage = 0.5M,
+                },
+            };
+
+            // Act
+            var result = sut.GetDiscount(cartItems, discounts);
+
+            // Assert
+            Assert.AreEqual(0.5M, result);
+        }
+        
+        [Test]
+        public void GetDiscount_WhenCartItemsProvided_AndMultipleDiscountsOnSameProduct_AndTriggerUsedMoreThanOnce_ShouldReturnCorrectValue()
+        {
+            // Arrange
+            var cartItems = GetCartItems(
+                new (int, decimal, int)[] {
+                    (1, 1, 10),
+                    (2, 1, 2),
+                    (3, 1, 3)
+                });
+            var discounts = new List<Discount>
+            {
+                new Discount
+                {
+                    DiscountedProductId = 1,
+                    DiscountTriggerProductId = 2,
+                    DiscountTriggerProductCount = 1,
+                    DiscountPercentage = 0.5M,
+                },
+                new Discount
+                {
+                    DiscountedProductId = 1,
+                    DiscountTriggerProductId = 3,
+                    DiscountTriggerProductCount = 1,
+                    DiscountPercentage = 0.5M,
+                },
+                new Discount
+                {
+                    DiscountedProductId = 2,
+                    DiscountTriggerProductId = 1,
+                    DiscountTriggerProductCount = 1,
+                    DiscountPercentage = 0.5M,
+                },
+                new Discount
+                {
+                    DiscountedProductId = 3,
+                    DiscountTriggerProductId = 1,
+                    DiscountTriggerProductCount = 1,
+                    DiscountPercentage = 0.5M,
+                },
+            };
+
+            // Act
+            var result = sut.GetDiscount(cartItems, discounts);
+
+            // Assert
+            Assert.AreEqual(5M, result);
+        }
+
+        [Test]
         [TestCaseSource(nameof(GetTestCases))]
         public void GetDiscount_CalculatesDiscountCorrectlyForTestCases(DiscountServiceTestCase tc)
         {
