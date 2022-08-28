@@ -1,4 +1,5 @@
 ﻿using AlsoftShop.Models;
+using AlsoftShop.Repository;
 using AlsoftShop.Repository.Interfaces;
 using AlsoftShop.Services.Interfaces;
 using System;
@@ -12,7 +13,7 @@ namespace AlsoftShop.Services
         private readonly ISubtotalPriceService subtotalPriceService;
         private readonly IDiscountService discountService;
 
-        public TotalPriceService(IRepository repository,
+        public TotalPriceService(DatabaseRepository repository,
             ISubtotalPriceService subtotalPriceService,
             IDiscountService discountService)
         {

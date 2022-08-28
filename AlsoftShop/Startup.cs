@@ -1,3 +1,5 @@
+using AlsoftShop.Factories;
+using AlsoftShop.Factories.Interfaces;
 using AlsoftShop.Repository;
 using AlsoftShop.Repository.Interfaces;
 using AlsoftShop.Services;
@@ -25,11 +27,13 @@ namespace AlsoftShop
 
             // signletons
             services.AddSingleton<IRepository, HardcodedRepository>();
+            services.AddSingleton<DatabaseRepository>();
 
             // scoped
             services.AddScoped<ISubtotalPriceService, SubtotalPriceService>();
             services.AddScoped<IDiscountService, DiscountService>();
             services.AddScoped<ITotalPriceService, TotalPriceService>();
+            services.AddTransient<IDbConnectionFactory, DbConnectionFactory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

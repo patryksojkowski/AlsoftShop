@@ -1,4 +1,5 @@
-﻿using AlsoftShop.Repository.Interfaces;
+﻿using AlsoftShop.Repository;
+using AlsoftShop.Repository.Interfaces;
 using AlsoftShop.Services.Interfaces;
 using AlsoftShop.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -10,20 +11,23 @@ namespace AlsoftShop.Controllers
     {
         private readonly IRepository repository;
         private readonly ITotalPriceService totalPriceService;
+        private readonly DatabaseRepository databaseRepository;
 
         public ShopController(
             IRepository repository,
-            ITotalPriceService totalPriceService)
+            ITotalPriceService totalPriceService,
+            DatabaseRepository databaseRepository)
         {
             this.repository = repository;
             this.totalPriceService = totalPriceService;
+            this.databaseRepository = databaseRepository;
         }
 
         public IActionResult Index()
         {
             try
             {
-                var products = repository.GetProducts();
+                var products = databaseRepository.GetProducts();
                 var cartItems = repository.GetCartItems();
 
                 var priceInfo = totalPriceService.GetPrice(cartItems);
