@@ -2,10 +2,6 @@
 using AlsoftShop.Services.Interfaces;
 using AlsoftShop.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AlsoftShop.Controllers
 {
@@ -24,15 +20,15 @@ namespace AlsoftShop.Controllers
 
         public IActionResult Index()
         {
-            var items = repository.GetItems();
-            var currentItems = repository.GetCurrentItems();
+            var products = repository.GetProducts();
+            var cartItems = repository.GetCartItems();
 
-            var priceInfo = totalPriceService.GetPrice(currentItems);
+            var priceInfo = totalPriceService.GetPrice(cartItems);
 
             var vm = new ShopViewModel
             {
-                Items = items,
-                CurrentItems = currentItems,
+                Products = products,
+                CartItems = cartItems,
                 Subtotal = priceInfo.Subtotal,
                 Discount = priceInfo.Discount,
                 Total = priceInfo.Total,
@@ -44,15 +40,15 @@ namespace AlsoftShop.Controllers
         [Route("Add/{id}")]
         public IActionResult Add(int id)
         {
-            repository.AddItem(id);
+            repository.AddProductToCart(id);
 
             return Index();
         }
 
         [Route("Remove/{id}")]
-        public IActionResult Remove(Guid id)
+        public IActionResult Remove(int id)
         {
-            repository.RemoveItem(id);
+            repository.RemoveProductFromCart(id);
 
             return Index();
         }

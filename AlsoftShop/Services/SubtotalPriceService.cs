@@ -1,20 +1,17 @@
 ﻿using AlsoftShop.Models;
 using AlsoftShop.Services.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AlsoftShop.Services
 {
     public class SubtotalPriceService : ISubtotalPriceService
     {
-        public decimal GetPrice(IEnumerable<ShoppingCartItem> items)
+        public decimal GetSubtotal(IEnumerable<CartItem> cartItems)
         {
             var total = 0M;
-            foreach (var item in items)
+            foreach (var cartItem in cartItems)
             {
-                total += item.Quantity * item.Item.Price;
+                total += cartItem.Quantity * cartItem.Product.Price;
             }
 
             return total;

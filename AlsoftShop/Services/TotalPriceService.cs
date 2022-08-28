@@ -1,10 +1,7 @@
 ﻿using AlsoftShop.Models;
 using AlsoftShop.Repository.Interfaces;
 using AlsoftShop.Services.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AlsoftShop.Services
 {
@@ -22,13 +19,13 @@ namespace AlsoftShop.Services
             this.subtotalPriceService = subtotalPriceService;
             this.discountService = discountService;
         }
-        public PriceInfo GetPrice(IEnumerable<ShoppingCartItem> shoppingCartItems)
+        public PriceInfo GetPrice(IEnumerable<CartItem> cartItems)
         {
-            var subtotal = subtotalPriceService.GetPrice(shoppingCartItems);
+            var subtotal = subtotalPriceService.GetSubtotal(cartItems);
 
             var discounts = repository.GetDiscounts();
 
-            var totalDiscount = discountService.GetDiscount(shoppingCartItems, discounts);
+            var totalDiscount = discountService.GetDiscount(cartItems, discounts);
 
             var total = subtotal - totalDiscount;
 

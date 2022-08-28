@@ -9,55 +9,59 @@ namespace AlsoftShop.Repository
 {
     public class HardcodedRepository : IRepository
     {
-        private IEnumerable<Item> items;
+        private IEnumerable<Product> products;
 
-        private IList<ShoppingCartItem> currentItems;
+        private IList<CartItem> cartItems;
 
         private IEnumerable<Discount> discounts;
 
         public HardcodedRepository()
         {
-            items = InitializeItems();
-            currentItems = InitializeShoppingCart();
+            products = InitializeProducts();
+            cartItems = InitializeCart();
             discounts = InitializeDiscounts();
         }
 
-        public void AddItem(int id)
+        public void AddProductToCart(int productId)
         {
-            var currentItem = currentItems.FirstOrDefault(i => i.Item.Id == id);
-            if(currentItem is null)
+            var cartItem = cartItems.FirstOrDefault(i => i.Product.Id == productId);
+            if(cartItem is null)
             {
-                var item = items.First(i => i.Id == id);
-                currentItem = new ShoppingCartItem
+                var item = products.FirstOrDefault(i => i.Id == productId)
+                    ?? throw new ArgumentOutOfRangeException(nameof(productId));
+
+                cartItem = new CartItem
                 {
-                    Item = item,
+                    Product = item
                 };
-                currentItems.Add(currentItem);
+
+                cartItems.Add(cartItem);
             }
 
-            currentItem.Quantity++;
+            cartItem.Quantity++;
         }
 
-        public void RemoveItem(Guid id)
+        public void RemoveProductFromCart(int productId)
         {
-            var itemToRemove = currentItems.First(i => i.Id == id);
+            var cartItem = cartItems.FirstOrDefault(i => i.Product.Id == productId)
+                ?? throw new ArgumentOutOfRangeException(nameof(productId));
 
-            if(itemToRemove.Quantity == 1)
+            if(cartItem.Quantity == 1)
             {
-                currentItems.Remove(itemToRemove);
+                cartItems.Remove(cartItem);
             }
 
-            itemToRemove.Quantity--;
+            cartItem.Quantity--;
         }
 
-        public IEnumerable<Item> GetItems()
+        public IEnumerable<Product> GetProducts()
         {
-            return items;
+            return products;
         }
 
-        public IEnumerable<ShoppingCartItem> GetCurrentItems()
+        public IEnumerable<CartItem> GetCartItems()
         {
-            return currentItems;
+            return cartItems;
         }
 
         public IEnumerable<Discount> GetDiscounts()
@@ -65,11 +69,11 @@ namespace AlsoftShop.Repository
             return discounts;
         }
 
-        private IEnumerable<Item> InitializeItems()
+        private IEnumerable<Product> InitializeProducts()
         {
-            return new List<Item>
+            return new List<Product>
             {
-                new Item
+                new Product
                 {
                     Id = 1,
                     Name = "Apple",
@@ -80,7 +84,7 @@ namespace AlsoftShop.Repository
                         ["Origin"] = "Poland"
                     }
                 },
-                new Item
+                new Product
                 {
                     Id = 2,
                     Name = "Soup",
@@ -94,13 +98,13 @@ namespace AlsoftShop.Repository
             };
         }
 
-        private IList<ShoppingCartItem> InitializeShoppingCart()
+        private IList<CartItem> InitializeCart()
         {
-            return new List<ShoppingCartItem>
+            return new List<CartItem>
             {
-                new ShoppingCartItem
+                new CartItem
                 {
-                    Item = new Item
+                    Product = new Product
                     {
                         Id = 2,
                         Name = "Soup",
@@ -123,9 +127,9 @@ namespace AlsoftShop.Repository
             {
                 new Discount
                 {
-                    DiscountedItemId = 1,
-                    DiscountTriggerItemId = 1,
-                    DiscountTriggerItemCount = 1,
+                    DiscountedProductId = 1,
+                    DiscountTriggerProductId = 1,
+                    DiscountTriggerProductCount = 1,
                     DiscountPercentage = 0.1M,
                 }
             };

@@ -8,13 +8,14 @@ namespace AlsoftShop.Repository.Interfaces
 {
     public interface IRepository
     {
-        IEnumerable<Item> GetItems();
+        IEnumerable<Product> GetProducts();
 
-        IEnumerable<ShoppingCartItem> GetCurrentItems();
+        // todo CartItems should be stored in session and should be stored in DB only at program exit
+        IEnumerable<CartItem> GetCartItems();
 
-        void AddItem(int id);
+        void AddProductToCart(int productId);
 
-        void RemoveItem(Guid id);
+        void RemoveProductFromCart(int productId);
 
         IEnumerable<Discount> GetDiscounts();
     }

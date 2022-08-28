@@ -1,8 +1,5 @@
 ﻿using AlsoftShop.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AlsoftShop.ViewModels
 {
@@ -11,7 +8,7 @@ namespace AlsoftShop.ViewModels
         public decimal Subtotal { get; set; }
         public decimal Discount { get; set; }
         public decimal Total { get; set; }
-        public IEnumerable<Item> Items { get; set; } = new List<Item>();
-        public IEnumerable<ShoppingCartItem> CurrentItems { get; set; } = new List<ShoppingCartItem>();
+        public IEnumerable<Product> Products { get; set; } = new List<Product>();
+        public IEnumerable<CartItem> CartItems { get; set; } = new List<CartItem>();
     }
 }
