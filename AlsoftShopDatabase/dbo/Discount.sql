@@ -4,7 +4,7 @@
 	[DiscountedProductId] INT NOT NULL,
 	[DiscountTriggerProductId] INT NOT NULL,
 	[DiscountTriggerProductCount] INT NOT NULL,
-	[DiscountPercentage] DECIMAL NOT NULL
+	[DiscountPercentage] DECIMAL(3,2) NOT NULL
 
 	FOREIGN KEY ([DiscountedProductId]) REFERENCES Product(Id)
 	FOREIGN KEY ([DiscountTriggerProductId]) REFERENCES Product(Id)
