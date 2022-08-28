@@ -128,8 +128,8 @@ namespace AlsoftShop.Repository
                 new Discount
                 {
                     DiscountedProductId = 1,
-                    DiscountTriggerProductId = 1,
-                    DiscountTriggerProductCount = 1,
+                    DiscountTriggerProductId = 2,
+                    DiscountTriggerProductCount = 2,
                     DiscountPercentage = 0.1M,
                 }
             };
