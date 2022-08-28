@@ -41,12 +41,10 @@ namespace AlsoftShop.Services
                 var discountedProductQuantity = cartItem.Quantity;
                 var discountTriggerItemQuantity = discountTriggerItem.Quantity;
 
-                // todo verify it actually works via tests :)
                 var discountedItems = Math.Min(
                     discountTriggerItemQuantity / discount.DiscountTriggerProductCount,
                     discountedProductQuantity);
 
-                // todo verify it actually works via tests :)
                 discountTotal += discountedItems * discountedProduct.Price * discount.DiscountPercentage;
             }
 

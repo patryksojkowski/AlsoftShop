@@ -7,6 +7,7 @@ using System.Text;
 
 namespace AlsoftShop.Tests.Services
 {
+    [TestFixture]
     public class SubtotalPriceServiceTests
     {
         private SubtotalPriceService sut = new SubtotalPriceService();

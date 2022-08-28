@@ -9,6 +9,7 @@ using AlsoftShop.Models;
 
 namespace AlsoftShop.Tests.Services
 {
+    [TestFixture]
     public class TotalPriceServiceTests
     {
         private Mock<IRepository> repositoryMock;
