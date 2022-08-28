@@ -55,10 +55,7 @@ namespace AlsoftShop.Tests.Controllers
                 Name = "Some name",
                 Price = 1,
                 Unit = "Some unit",
-                AdditionalProperties = new Dictionary<string, string>
-                {
-                    ["Origin"] = "Poland"
-                }
+                Description = "Origin: Poland"
             };
 
             var products = new List<Product>
@@ -134,7 +131,7 @@ namespace AlsoftShop.Tests.Controllers
         public void Remove_WhenObjectRemovedCorrectly_ShouldReturnCorrectViewModel()
         {
             // Act
-            var result = sut.Add(1) as ViewResult;
+            var result = sut.Remove(1) as ViewResult;
 
             // Assert
             Assert.NotNull(result);

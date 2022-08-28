@@ -6,5 +6,5 @@
 	[ShoppingCartId] INT NOT NULL
 
 	FOREIGN KEY (ProductId) REFERENCES Product(Id)
-	FOREIGN KEY (ShoppingCartId) REFERENCES ShoppingCart(id)
+	FOREIGN KEY (ShoppingCartId) REFERENCES ShoppingCart(Id)
 )
