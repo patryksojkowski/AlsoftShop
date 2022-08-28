@@ -1,5 +1,4 @@
-﻿using AlsoftShop.Repository;
-using AlsoftShop.Repository.Interfaces;
+﻿using AlsoftShop.Repository.Interfaces;
 using AlsoftShop.Services.Interfaces;
 using AlsoftShop.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -28,6 +27,8 @@ namespace AlsoftShop.Controllers
                 var cartItems = repository.GetCartItems();
 
                 var priceInfo = totalPriceService.GetPrice(cartItems);
+
+                repository.StorePrice(priceInfo);
 
                 var vm = new ShopViewModel
                 {

@@ -3,10 +3,10 @@ using AlsoftShop.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace AlsoftShop.Repository
 {
+    [Obsolete("Use DatabaseRepository")]
     public class HardcodedRepository : IRepository
     {
         private IEnumerable<Product> products;
@@ -124,6 +124,11 @@ namespace AlsoftShop.Repository
                     DiscountPercentage = 0.1M,
                 }
             };
+        }
+
+        public void StorePrice(PriceInfo priceInfo)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace AlsoftShop.Models
+﻿namespace AlsoftShop.Models
 {
     public class Product
     {

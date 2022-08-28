@@ -1,8 +1,5 @@
 ﻿using AlsoftShop.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AlsoftShop.Repository.Interfaces
 {
@@ -18,5 +15,7 @@ namespace AlsoftShop.Repository.Interfaces
         void RemoveProductFromCart(int productId);
 
         IEnumerable<Discount> GetDiscounts();
+
+        void StorePrice(PriceInfo priceInfo);
     }
 }

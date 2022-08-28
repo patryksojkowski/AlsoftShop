@@ -6,6 +6,7 @@ using System.Linq;
 using Dapper;
 using System.Data;
 using AlsoftShop.Factories.Interfaces;
+using System.Globalization;
 
 namespace AlsoftShop.Repository
 {
@@ -86,13 +87,22 @@ namespace AlsoftShop.Repository
 
             if(cartItem.Quantity > 1)
             {
-                db.Query($"UPDATE dbo.CartItem SET QUANTITY = {cartItem.Quantity - 1} WHERE ProductId = {productId}");
+                db.Query($"UPDATE dbo.CartItem SET Quantity = {cartItem.Quantity - 1} WHERE ProductId = {productId}");
             }
             else
             {
                 db.Query($"DELETE FROM CartItem WHERE ProductId = {productId}");
 
             }
+        }
+
+        public void StorePrice(PriceInfo priceInfo)
+        {
+            using IDbConnection db = dbConnectionFactory.GetConnection();
+            db.Open();
+
+            var str = $"UPDATE ShoppingCart SET Subtotal = {priceInfo.Subtotal}, Discount = {priceInfo.Discount}, Total = {priceInfo.Total} ";
+            var result = db.Query<Product>(str);
         }
     }
 }
