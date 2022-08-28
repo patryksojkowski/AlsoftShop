@@ -11,55 +11,15 @@ namespace AlsoftShop.Repository
     {
         private IEnumerable<Item> items;
 
-        private IList<ShoppingCartItem> currentItems = new List<ShoppingCartItem>();
+        private IList<ShoppingCartItem> currentItems;
+
+        private IEnumerable<Discount> discounts;
 
         public HardcodedRepository()
         {
-            items = new List<Item>
-            {
-                new Item
-                {
-                    Id = 1,
-                    Name = "Apple",
-                    Price = 1M,
-                    Unit = "Bag",
-                    AdditionalProperties = new Dictionary<string, string>
-                    {
-                        ["Origin"] = "Poland"
-                    }
-                },
-                new Item
-                {
-                    Id = 2,
-                    Name = "Soup",
-                    Price = 0.65M,
-                    Unit = "Tin",
-                    AdditionalProperties = new Dictionary<string, string>
-                    {
-                        ["Flavour"] = "Chicken"
-                    }
-                },
-            };
-
-            currentItems = new List<ShoppingCartItem>
-            {
-                new ShoppingCartItem
-                {
-                    Item = new Item
-                    {
-                        Id = 2,
-                        Name = "Soup",
-                        Price = 0.65M,
-                        Unit = "Tin",
-                        AdditionalProperties = new Dictionary<string, string>
-                        {
-                            ["Flavour"] = "Chicken"
-                        }
-                    },
-                    Quantity = 2
-                }
-
-            };
+            items = InitializeItems();
+            currentItems = InitializeShoppingCart();
+            discounts = InitializeDiscounts();
         }
 
         public void AddItem(int id)
@@ -98,6 +58,77 @@ namespace AlsoftShop.Repository
         public IEnumerable<ShoppingCartItem> GetCurrentItems()
         {
             return currentItems;
+        }
+
+        public IEnumerable<Discount> GetDiscounts()
+        {
+            return discounts;
+        }
+
+        private IEnumerable<Item> InitializeItems()
+        {
+            return new List<Item>
+            {
+                new Item
+                {
+                    Id = 1,
+                    Name = "Apple",
+                    Price = 1M,
+                    Unit = "Bag",
+                    AdditionalProperties = new Dictionary<string, string>
+                    {
+                        ["Origin"] = "Poland"
+                    }
+                },
+                new Item
+                {
+                    Id = 2,
+                    Name = "Soup",
+                    Price = 0.65M,
+                    Unit = "Tin",
+                    AdditionalProperties = new Dictionary<string, string>
+                    {
+                        ["Flavour"] = "Chicken"
+                    }
+                },
+            };
+        }
+
+        private IList<ShoppingCartItem> InitializeShoppingCart()
+        {
+            return new List<ShoppingCartItem>
+            {
+                new ShoppingCartItem
+                {
+                    Item = new Item
+                    {
+                        Id = 2,
+                        Name = "Soup",
+                        Price = 0.65M,
+                        Unit = "Tin",
+                        AdditionalProperties = new Dictionary<string, string>
+                        {
+                            ["Flavour"] = "Chicken"
+                        }
+                    },
+                    Quantity = 2
+                }
+
+            };
+        }
+
+        private IEnumerable<Discount> InitializeDiscounts()
+        {
+            return new List<Discount>
+            {
+                new Discount
+                {
+                    DiscountedItemId = 1,
+                    DiscountTriggerItemId = 1,
+                    DiscountTriggerItemCount = 1,
+                    DiscountPercentage = 0.1M,
+                }
+            };
         }
     }
 }

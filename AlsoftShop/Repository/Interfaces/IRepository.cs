@@ -15,5 +15,7 @@ namespace AlsoftShop.Repository.Interfaces
         void AddItem(int id);
 
         void RemoveItem(Guid id);
+
+        IEnumerable<Discount> GetDiscounts();
     }
 }
