@@ -25,6 +25,8 @@ namespace AlsoftShop.Services
 
         private decimal GetDiscountInternal(IEnumerable<CartItem> cartItems, IEnumerable<Discount> discounts)
         {
+            // store already discounted triggers to fix low fat milk issue
+            // store already discounted products to fix low fat milk issue
             var discountTotal = 0M;
             foreach (var discount in discounts)
             {
